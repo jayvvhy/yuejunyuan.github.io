@@ -20,10 +20,6 @@
       text-align: center;
     }
 
-    nav {
-      margin-top: 10px;
-    }
-
     nav a {
       color: white;
       text-decoration: none;
@@ -52,28 +48,52 @@
       color: #555;
     }
 
-    /* Viewer Box */
+    /* Custom Viewer */
     .viewer-box {
       position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 20px auto;
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow: hidden;
-      margin-bottom: 20px;
     }
 
-    .viewer-box iframe {
+    .viewer-box img {
       width: 100%;
-      height: 600px;
-      border: none;
+      height: auto;
+      display: block;
     }
 
-    /* Thumbnail preview section */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 1.2em;
+      border-radius: 4px;
+    }
+
+    .nav-btn:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+
+    /* Thumbnail preview */
     .thumbnails {
       display: flex;
       justify-content: center;
       gap: 10px;
-      flex-wrap: wrap;
+      margin-top: 15px;
+      overflow-x: auto;
+      padding-bottom: 10px;
     }
 
     .thumbnails img {
@@ -82,12 +102,17 @@
       object-fit: cover;
       border-radius: 6px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+      border: 2px solid transparent;
     }
 
     .thumbnails img:hover {
       transform: scale(1.05);
       box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    .thumbnails img.active {
+      border: 2px solid #4A90E2;
     }
 
     footer {
@@ -98,6 +123,7 @@
       font-size: 0.9em;
       color: #555;
     }
+
   </style>
 </head>
 <body>
@@ -119,29 +145,85 @@
       using the Medallion architecture, Docker containerization, and PySpark orchestration.
     </p>
 
-    <!-- PDF Viewer -->
+    <!-- Custom Viewer -->
     <div class="viewer-box">
-      <iframe src="assets/full_deck/processing_pipelining.pdf"></iframe>
+      <button class="nav-btn prev-btn">&#10094;</button>
+      <img id="current-slide" src="assets/slide_preview/processing_pipelining_page_1.jpg" alt="Slide Viewer">
+      <button class="nav-btn next-btn">&#10095;</button>
     </div>
 
     <!-- Thumbnails -->
-    <div class="thumbnails">
-      <img src="assets/slide_preview/processing_pipelining_page_1.jpg" alt="Slide 1">
-      <img src="assets/slide_preview/processing_pipelining_page_2.jpg" alt="Slide 2">
-      <img src="assets/slide_preview/processing_pipelining_page_3.jpg" alt="Slide 3">
-      <img src="assets/slide_preview/processing_pipelining_page_4.jpg" alt="Slide 4">
-      <img src="assets/slide_preview/processing_pipelining_page_5.jpg" alt="Slide 5">
-      <img src="assets/slide_preview/processing_pipelining_page_6.jpg" alt="Slide 6">
-      <img src="assets/slide_preview/processing_pipelining_page_7.jpg" alt="Slide 7">
-      <img src="assets/slide_preview/processing_pipelining_page_8.jpg" alt="Slide 8">
-      <img src="assets/slide_preview/processing_pipelining_page_9.jpg" alt="Slide 9">
-      <img src="assets/slide_preview/processing_pipelining_page_10.jpg" alt="Slide 10">
+    <div class="thumbnails" id="thumbnail-container">
+      <!-- thumbnails will be populated by JS -->
     </div>
   </main>
 
   <footer>
     &copy; 2025 Yue Jun Yuan. All rights reserved.
   </footer>
+
+  <script>
+    // List of slide images
+    const slides = [
+      "assets/slide_preview/processing_pipelining_page_1.jpg",
+      "assets/slide_preview/processing_pipelining_page_2.jpg",
+      "assets/slide_preview/processing_pipelining_page_3.jpg",
+      "assets/slide_preview/processing_pipelining_page_4.jpg",
+      "assets/slide_preview/processing_pipelining_page_5.jpg",
+      "assets/slide_preview/processing_pipelining_page_6.jpg",
+      "assets/slide_preview/processing_pipelining_page_7.jpg",
+      "assets/slide_preview/processing_pipelining_page_8.jpg",
+      "assets/slide_preview/processing_pipelining_page_9.jpg",
+      "assets/slide_preview/processing_pipelining_page_10.jpg"
+    ];
+
+    let currentIndex = 0;
+    const viewer = document.getElementById("current-slide");
+    const thumbnailContainer = document.getElementById("thumbnail-container");
+
+    // Function to render thumbnails (current + 3 left/right)
+    function renderThumbnails() {
+      thumbnailContainer.innerHTML = "";
+      const start = Math.max(currentIndex - 3, 0);
+      const end = Math.min(currentIndex + 3, slides.length - 1);
+
+      for (let i = start; i <= end; i++) {
+        const thumb = document.createElement("img");
+        thumb.src = slides[i];
+        thumb.alt = `Slide ${i+1}`;
+        if (i === currentIndex) thumb.classList.add("active");
+        thumb.addEventListener("click", () => {
+          currentIndex = i;
+          updateViewer();
+        });
+        thumbnailContainer.appendChild(thumb);
+      }
+    }
+
+    // Update viewer and thumbnails
+    function updateViewer() {
+      viewer.src = slides[currentIndex];
+      renderThumbnails();
+    }
+
+    // Navigation buttons
+    document.querySelector(".prev-btn").addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateViewer();
+      }
+    });
+
+    document.querySelector(".next-btn").addEventListener("click", () => {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        updateViewer();
+      }
+    });
+
+    // Initial render
+    renderThumbnails();
+  </script>
 
 </body>
 </html>

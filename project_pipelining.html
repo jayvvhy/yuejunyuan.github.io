@@ -77,6 +77,7 @@
       cursor: pointer;
       font-size: 1.2em;
       border-radius: 4px;
+      z-index: 2;
     }
 
     .nav-btn:hover {
@@ -89,14 +90,15 @@
     /* Thumbnail preview */
     .thumbnails {
       display: flex;
-      justify-content: center;
+      overflow-x: auto;
       gap: 10px;
       margin-top: 15px;
-      overflow-x: auto;
       padding-bottom: 10px;
+      scroll-behavior: smooth;
     }
 
     .thumbnails img {
+      flex: 0 0 auto;
       width: 100px;
       height: 60px;
       object-fit: cover;
@@ -146,7 +148,7 @@
     </p>
 
     <!-- Custom Viewer -->
-    <div class="viewer-box">
+    <div class="viewer-box" id="viewer-box">
       <button class="nav-btn prev-btn">&#10094;</button>
       <img id="current-slide" src="assets/slide_preview/processing_pipelining_page_1.jpg" alt="Slide Viewer">
       <button class="nav-btn next-btn">&#10095;</button>
@@ -154,7 +156,7 @@
 
     <!-- Thumbnails -->
     <div class="thumbnails" id="thumbnail-container">
-      <!-- thumbnails will be populated by JS -->
+      <!-- thumbnails dynamically populated -->
     </div>
   </main>
 
@@ -163,7 +165,6 @@
   </footer>
 
   <script>
-    // List of slide images
     const slides = [
       "assets/slide_preview/processing_pipelining_page_1.jpg",
       "assets/slide_preview/processing_pipelining_page_2.jpg",
@@ -181,13 +182,9 @@
     const viewer = document.getElementById("current-slide");
     const thumbnailContainer = document.getElementById("thumbnail-container");
 
-    // Function to render thumbnails (current + 3 left/right)
     function renderThumbnails() {
       thumbnailContainer.innerHTML = "";
-      const start = Math.max(currentIndex - 3, 0);
-      const end = Math.min(currentIndex + 3, slides.length - 1);
-
-      for (let i = start; i <= end; i++) {
+      for (let i = 0; i < slides.length; i++) {
         const thumb = document.createElement("img");
         thumb.src = slides[i];
         thumb.alt = `Slide ${i+1}`;
@@ -195,15 +192,23 @@
         thumb.addEventListener("click", () => {
           currentIndex = i;
           updateViewer();
+          scrollThumbnailIntoView(i);
         });
         thumbnailContainer.appendChild(thumb);
       }
+      scrollThumbnailIntoView(currentIndex);
     }
 
-    // Update viewer and thumbnails
     function updateViewer() {
       viewer.src = slides[currentIndex];
-      renderThumbnails();
+      const thumbs = thumbnailContainer.querySelectorAll("img");
+      thumbs.forEach((t, idx) => t.classList.toggle("active", idx === currentIndex));
+      scrollThumbnailIntoView(currentIndex);
+    }
+
+    function scrollThumbnailIntoView(index) {
+      const thumb = thumbnailContainer.querySelectorAll("img")[index];
+      thumb.scrollIntoView({ behavior: "smooth", inline: "center" });
     }
 
     // Navigation buttons
@@ -221,9 +226,30 @@
       }
     });
 
+    // Touch swipe for viewer
+    const viewerBox = document.getElementById("viewer-box");
+    let startX = 0, endX = 0;
+
+    viewerBox.addEventListener("touchstart", e => startX = e.changedTouches[0].screenX);
+    viewerBox.addEventListener("touchend", e => {
+      endX = e.changedTouches[0].screenX;
+      if (endX < startX - 50 && currentIndex < slides.length - 1) currentIndex++;
+      if (endX > startX + 50 && currentIndex > 0) currentIndex--;
+      updateViewer();
+    });
+
+    // Touch swipe for thumbnail strip
+    let thumbStartX = 0, thumbEndX = 0;
+    thumbnailContainer.addEventListener("touchstart", e => thumbStartX = e.changedTouches[0].screenX);
+    thumbnailContainer.addEventListener("touchend", e => {
+      thumbEndX = e.changedTouches[0].screenX;
+      if (thumbEndX < thumbStartX - 30 && currentIndex < slides.length - 1) currentIndex++;
+      if (thumbEndX > thumbStartX + 30 && currentIndex > 0) currentIndex--;
+      updateViewer();
+    });
+
     // Initial render
     renderThumbnails();
   </script>
-
 </body>
 </html>
