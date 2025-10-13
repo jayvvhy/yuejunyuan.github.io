@@ -117,27 +117,8 @@
   <!-- Header placeholder -->
   <div id="header-placeholder"></div>
 
-  <script>
-  // Load header.html
-  fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-
-      // After header is injected, mark active link
-      const path = window.location.pathname;
-      const page = path.split("/").pop();
-      const navLinks = document.querySelectorAll("#header-placeholder nav a");
-
-      navLinks.forEach(link => {
-          if (link.getAttribute("href") === page || 
-              (page.startsWith("project_") && link.getAttribute("href") === "projects.html")) {
-          link.classList.add("active");
-          }
-      });
-      })
-      .catch(err => console.error('Error loading header:', err));
-  </script>
+  <!-- Load header (only this line needed!) -->
+  <script src="scripts/loadHeader.js"></script> 
 
   <main>
     <h1><strong>Data Processing Pipelining</strong></h1>
@@ -250,6 +231,6 @@
     // Initial render
     renderThumbnails();
   </script>
-  
+
 </body>
 </html>
