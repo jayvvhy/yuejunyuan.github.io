@@ -1,8 +1,14 @@
 header {
   background-color: #4A90E2;
   color: white;
-  padding: 20px 0;
+  padding: 25px 0; /* slightly more padding for a balanced look */
   text-align: center;
+}
+
+header h1 {
+  font-size: 2.25em; /* roughly 1.5× larger than before */
+  margin-bottom: 10px;
+  letter-spacing: 0.5px; /* small visual polish */
 }
 
 nav {
@@ -12,14 +18,28 @@ nav {
 nav a {
   color: white;
   text-decoration: none;
-  margin: 0 15px;
+  margin: 0 18px;
   font-weight: bold;
+  font-size: 1.25em; /* increase size of nav links */
+  position: relative; /* for the custom underline */
+  padding-bottom: 5px; /* space for underline */
+  transition: all 0.2s ease;
 }
 
-nav a:hover {
-  text-decoration: underline;
+/* Create a clear underline that sits slightly below the text */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px; /* thickness of underline */
+  background-color: white;
+  transition: width 0.3s ease;
 }
 
-header nav a.active {
-  text-decoration: underline;
+/* Hover and active states show underline */
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
 }
