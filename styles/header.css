@@ -27,19 +27,19 @@ nav a {
 }
 
 /* Create a clear underline that sits slightly below the text */
-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 3px; /* thickness of underline */
-  background-color: white;
-  transition: width 0.3s ease;
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: bold;
+  font-size: 1.25em; /* increase link text size */
+  position: relative;
+  text-underline-offset: 6px; /* adds visible space between underline & text */
 }
 
-/* Hover and active states show underline */
-nav a:hover::after,
-nav a.active::after {
-  width: 100%;
+nav a:hover,
+nav a.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px; /* thicker underline for clarity */
+  text-underline-offset: 6px; /* consistent offset for both hover and active */
 }
