@@ -130,15 +130,8 @@
 </head>
 <body>
 
-  <header>
-    <h1>Yue Jun Yuan</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="page2.html">Page 2</a>
-      <a href="slides.html">Slides</a>
-    </nav>
-  </header>
+  <!-- Header placeholder -->
+  <div id="header-placeholder"></div>
 
   <main>
     <h1><strong>Data Processing Pipelining</strong></h1>
@@ -251,5 +244,14 @@
     // Initial render
     renderThumbnails();
   </script>
+
+<!-- JavaScript to load header -->
+<script>
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => document.getElementById('header-placeholder').innerHTML = data)
+    .catch(err => console.error('Error loading header:', err));
+</script>
+
 </body>
 </html>
