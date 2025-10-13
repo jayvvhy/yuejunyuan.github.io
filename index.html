@@ -137,6 +137,41 @@
       font-size: 0.95em;
     }
 
+    /* Education section (mirrors Experience section) */
+    .education {
+    margin-top: 60px;
+    text-align: center;
+    }
+
+    .education h2 {
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    color: #4A90E2;
+    }
+
+    .education-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    }
+
+    .school {
+    width: 180px;
+    text-align: center;
+    }
+
+    .school img {
+    width: 120px;        /* consistent display width */
+    height: 80px;        /* consistent height */
+    object-fit: contain;  /* preserves aspect ratio */
+    margin-bottom: 10px;
+    }
+
+    .school p {
+    font-size: 0.95em;
+    }
+
     footer {
       text-align: center;
       padding: 20px 0;
@@ -207,6 +242,24 @@
 
       </div>
     </section>
+    
+    <!-- Education Section -->
+    <section class="education">
+    <h2>Education</h2>
+    <div class="education-grid">
+
+        <div class="school">
+        <img src="assets/smu-master-single-h-rgb-logo.png" alt="SMU Logo">
+        <p><strong>SMU</strong><br>Master of IT in Business, Artificial Intelligence Track</p>
+        </div>
+
+        <div class="school">
+        <img src="assets/NUS_logo_full-horizontal.jpg" alt="NUS Logo">
+        <p><strong>NUS</strong><br>Bachelor of Business Administration, Accountancy & Finance Double Major</p>
+        </div>
+
+    </div>
+    </section>    
   </main>
 
   <footer>
