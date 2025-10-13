@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yue Jun Yuan</title>
   <style>
-    /* Reset some defaults */
+    /* Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -38,20 +38,103 @@
     }
 
     main {
-      max-width: 900px;
+      max-width: 1200px;
       margin: 40px auto;
       padding: 0 20px;
-      text-align: center;
     }
 
+    /* Welcome section layout */
     .welcome {
-      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      text-align: left;
     }
 
     .welcome img {
-      max-width: 200px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
-      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    .welcome-text {
+      max-width: 500px;
+    }
+
+    .welcome-text h2 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    .welcome-text p {
+    font-size: 1.25rem;   /* roughly 20px */
+    font-weight: 500;     /* slightly bold for emphasis */
+    margin-top: 0.5rem;
+    color: #333;          /* optional: improve readability */
+    }
+
+    .linkedin-btn {
+      display: inline-block;  /* stops full-width stretching */
+      margin-top: 10px;
+    }
+
+    /* Override inherited image styles for the LinkedIn banner */
+    .linkedin-btn img {
+    width: 150px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border-radius: 0;        /* <-- prevents rounding */
+    object-fit: contain;     /* preserves proportions */
+    box-shadow: none;        /* optional – ensures no extra styling */
+    background: none;        /* keeps transparent background if applicable */
+    }
+
+    .linkedin-btn img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Experience section */
+    .experience {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .experience h2 {
+      margin-bottom: 30px;
+      font-size: 1.8em;
+      color: #4A90E2;
+    }
+
+    .experience-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .company {
+      width: 180px;
+      text-align: center;
+    }
+
+    .company img {
+    width: 120px;          /* sets a consistent display width */
+    height: 80px;          /* sets a consistent height */
+    object-fit: contain;   /* preserves aspect ratio */
+    /*background-color: white; /* gives a clean background for transparent logos */
+    /*padding: 5px;          /* optional – some breathing space */
+    /*border-radius: 8px;    /* soft corners for aesthetic consistency */
+    /*box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* subtle shadow */
+    margin-bottom: 10px;
+    }
+
+    .company p {
+      font-size: 0.95em;
     }
 
     footer {
@@ -62,6 +145,7 @@
       font-size: 0.9em;
       color: #555;
     }
+
   </style>
 </head>
 <body>
@@ -77,15 +161,51 @@
   </header>
 
   <main>
+    <!-- Welcome Section -->
     <section class="welcome">
-      <img src="profile_photo.jpg" alt="Your photo">
-      <h2>Welcome!</h2>
-      <p>This is a placeholder welcome message. Replace this text with your own introduction.</p>
+      <img src="images/profile_photo.jpg" alt="Your photo">
+      <div class="welcome-text">
+        <h2>Data Scientist & Postgraduate Master Specializing in Artificial Intelligence</h2>
+        <p>Yue Jun Yuan</p>
+        <div class="linkedin-btn">
+          <a href="https://www.linkedin.com/in/yue-jun-yuan/" target="_blank">
+            <img src="assets/lets_connect.jpg" alt="Let's Connect on LinkedIn">
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section class="links">
-      <h3>Quick Links</h3>
-      <p>Use this section to add links to your work, projects, or social media.</p>
+    <!-- Experience Section -->
+    <section class="experience">
+      <h2>Experience</h2>
+      <div class="experience-grid">
+
+        <div class="company">
+          <img src="assets/sc-lock-up-english-grey-rgb.png" alt="SC Logo">
+          <p><strong>Standard Chartered</strong><br>Data Scientist</p>
+        </div>
+
+        <div class="company">
+          <img src="assets/delaware-logo.png" alt="Delaware Logo">
+          <p><strong>Delaware</strong><br>Analytics Consultant</p>
+        </div>
+
+        <div class="company">
+          <img src="assets/Citi.png" alt="Citi Logo">
+          <p><strong>Citi</strong><br>Relatinship Manager</p>
+        </div>
+
+        <div class="company">
+          <img src="assets/UOB_logo.png" alt="UOB Logo">
+          <p><strong>UOB</strong><br>Personal Banker</p>
+        </div>
+
+        <div class="company">
+          <img src="assets/KPMG.png" alt="KPMG Logo">
+          <p><strong>KPMG</strong><br>Financial Services Audit Associate</p>
+        </div>
+
+      </div>
     </section>
   </main>
 
