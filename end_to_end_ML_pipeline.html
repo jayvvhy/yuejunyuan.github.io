@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project 4 - Data Processing Pipelining</title>
+  <title>Project 1 - End to End ML and Monitoring Pipelining</title>
   <!-- Global header CSS -->
   <link rel="stylesheet" href="styles/header.css">  
   <style>
@@ -121,16 +121,17 @@
   <script src="scripts/loadHeader.js"></script> 
 
   <main>
-    <h1><strong>Data Processing Pipelining</strong></h1>
+    <h1><strong>End to End ML and Monitoring Pipelining</strong></h1>
     <p class="description">
-      This project demonstrates the design and implementation of a scalable data processing pipeline 
-      using the Medallion architecture, Docker containerization, and PySpark orchestration.
+      This project demonstrates the design and implementation of an end to end ML pipeline including data processing using the Medallion architecture, 
+      automatic model training, model deployment (and trigger based redeployment), inference, and model monitoring pipeline.
+      Fully containerized Docker environment, with Airflow orchestration.
     </p>
 
     <!-- Custom Viewer -->
     <div class="viewer-box" id="viewer-box">
       <button class="nav-btn prev-btn">&#10094;</button>
-      <img id="current-slide" src="assets/slide_preview/processing_pipelining_page_1.jpg" alt="Slide Viewer">
+      <img id="current-slide" src="assets/slide_preview/end_to_end_pipeline_page_1.jpg" alt="Slide Viewer">
       <button class="nav-btn next-btn">&#10095;</button>
     </div>
 
@@ -146,16 +147,16 @@
 
   <script>
     const slides = [
-      "assets/slide_preview/processing_pipelining_page_1.jpg",
-      "assets/slide_preview/processing_pipelining_page_2.jpg",
-      "assets/slide_preview/processing_pipelining_page_3.jpg",
-      "assets/slide_preview/processing_pipelining_page_4.jpg",
-      "assets/slide_preview/processing_pipelining_page_5.jpg",
-      "assets/slide_preview/processing_pipelining_page_6.jpg",
-      "assets/slide_preview/processing_pipelining_page_7.jpg",
-      "assets/slide_preview/processing_pipelining_page_8.jpg",
-      "assets/slide_preview/processing_pipelining_page_9.jpg",
-      "assets/slide_preview/processing_pipelining_page_10.jpg"
+      "assets/slide_preview/end_to_end_pipeline_page_1.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_2.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_3.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_4.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_5.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_6.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_7.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_8.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_9.jpg",
+      "assets/slide_preview/end_to_end_pipeline_page_10.jpg"
     ];
 
     let currentIndex = 0;
